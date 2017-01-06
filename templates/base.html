@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NTHU Course</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans" rel="stylesheet">
+
+
+    <style type="text/css">
+        @font-face {
+        font-family: 'cwTeXHei';
+        font-style: normal;
+        font-weight: 500;
+        src: url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.eot);
+        src: url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.eot?#iefix) format('embedded-opentype'),
+        url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.woff2) format('woff2'),
+        url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.woff) format('woff'),
+        url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.ttf) format('truetype');
+        }     
+        body {
+            font-family: 'Lato', 'cwTeXHei', serif;
+        } 
+
+    </style>
+    {% block script %}
+    {% endblock %}
+
+</head>
+{% load static %}
+<body style="background: url('{% static "back.jpeg" %}') no-repeat; center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
+    <div class="container">
+    <div class="page-header">
+        <a href="{% url 'home' %}" style="text-decoration: none;color: inherit;">
+            <h1 style="font-family: 'Open Sans', sans-serif; font-style: bold; color:white;">NTHU Course</h1>
+        </a>      
+
+    </div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>

@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block script %}
+<script src="{% static './FButil.js' %}"></script>
+<script src="{% static './csrf.js' %}"></script>
+<script src="{% static '/rating.js' %}"></script>
+
+<script>
+ $(document).ready(function(){
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '334263470276709',
+            cookie     : true,  // enable cookies to allow the server to access 
+                                // the session
+            xfbml      : true,  // parse social plugins on this page
+            version    : 'v2.8', // use graph api version 2.8
+        });
+
+        
+        createRating();
+        console.log('base.html');
+    };
+
+    // Load the SDK asynchronously
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/zh_TW/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    });
+</script>
+{% endblock %}
+{% block content %}
+    <div class="row" style="">
+        <div class="col-md-4 well" style="height:220px">
+            <div class="">
+                <a href="{% url 'teacher_detail' pk=course.teacher_id.pk %}" style="text-decoration: none;color: inherit;">
+                <div class="row" style="">
+                    <div class="col-md-4" style="">
+                        <img src="{% static "images/"|add:image %}">
+                    </div>
+                    <div class="col-md-8" style="text-align: center;vertical-align: middle;">
+                        <br>
+                        <p style="font-size:250%">{{ course.teacher_id.name }}</p>
+                        <p>{{ course.teacher_id.title }}</p>
+                    </div>
+                </div>
+                <div class="row" style="text-align: center;vertical-align: middle;">
+                    <p>{{ course.teacher_id.department }}</p>
+                    <p>{{ course.teacher_id.experiences }}</p>
+                </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-8 well" style="">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-3" style="text-align: center;">
+                       <p style="font-size:150%;display:inline">{{ year }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <p style="font-size:300%;text-align:center">{{ course.course_ch }}</p>
+                    <p style="font-size:200%;text-align:center">{{ course.course_en }}</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" style="text-align:center;">
+                        <p>{{ course.category }}</p>
+                    </div>
+                    <div class="col-md-2" style="text-align:center;">
+                        <p>{{ course.time }}</p>
+                    </div>
+                    <div class="col-md-4" style="text-align:center;">
+                        <p>{{ course.course_id }}</p>   
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="position: relative;">
+        <div class="col-md-4"></div>
+        <div class="col-md-2  panel panel-default">
+            <div class="panel-body">
+                <p style="font-size:30px; margin-bottom:0px;">甜度<span style="font-size:12px">(<span id="people0">{{people0}}</span>人評分)</span></span></p> 
+                <p style=""><span id="score0"; style="font-size:30px">{{ score0 }}</span>&nbsp;分</p>
+                <p style="margin-bottom:0px;">我的評分<span><ul class="c-rating"></ul></span></p>
+            </div>
+        </div>
+        <div class="col-md-2  panel panel-default">
+            <div class="panel-body">
+                <p style="font-size:30px; margin-bottom:0px;">涼度<span style="font-size:10px">(<span id="people1">{{people1}}</span>人評分)</span></span></p> 
+                <p style=""><span id="score1"; style="font-size:30px">{{ score1 }}</span>&nbsp;分</p>
+                <p style="margin-bottom:0px;">我的評分<span><ul class="c-rating"></ul></span></p>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding:0;">
+            <div class="col-md-7  panel panel-default">
+                <div class="panel-body">
+                    <p style="font-size:30px; margin-bottom:0px;">精實度<span style="font-size:12px">(<span id="people2">{{people2}}</span>人評分)</span></span></p> 
+                    <p style=""><span id="score2"; style="font-size:30px">{{ score2 }}</span>&nbsp;分</p>
+                    <p style="margin-bottom:0px;">我的評分<span><ul class="c-rating"></ul></span></p>
+                </div>
+            </div>
+            <div class="col-md-5" style="position: absolute; bottom: 17px; right: 0;">
+                <div>
+                    <br><br>
+                    <a class="btn btn-default" href="{% url 'add_comment_to_course' pk=course.pk %}">Add comment</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+        {% for comment in course.comments.all %}
+            <div class="col-md-6">
+                <div class="col-md-12 panel panel-default">
+                    <div class="panel-body">
+                        <span style="float:right;">{{ comment.created_date }}</span>
+                        <p style="text-align:left;"><strong>{{ comment.author }}</strong></p>
+                        <p>{{ comment.text|linebreaks }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div>
+                <p style="text-align: center;">尚無評論</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <link rel="stylesheet" href="{% static "/rating.css" %}">
+
+{% endblock %}

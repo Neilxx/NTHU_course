@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    {% for course in course_list %}
+        <div>
+            {{ course.course_id }}
+            {{ course.course_ch }}
+            {{ course.course_en }}
+            {{ course.category }}
+            {{ course.time }}
+            {{ course.teacher_ch }}
+            {{ course.teacher_id.name }}
+        </div>
+    {% endfor %}
+</body>
+</html>

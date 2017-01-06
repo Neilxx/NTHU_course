@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+    <div class="row">
+        <div class="col-md-3" style="text-align: center;">
+            <img src="{% static "images/"|add:image %}" style="width: 160px;">
+        </div>
+        <div class="col-md-9">
+            <div class="col-md-3" style="text-align: center;vertical-align: middle;">
+                <br>
+                <p style="font-size:300%">{{ teacher.name }}</p>
+                <p>{{ teacher.title }}</p>
+                <br><br>
+                <p style="font-size:150%;">{{ teacher.department }}</p>
+            </div>
+            <div class="col-md-9" style="font-size:150%;">
+                <br>
+                <p>學習經歷：{{ teacher.experiences }}<p>
+                <p>領域：{{ teacher.field }}</p>
+                <p>EMAIL:{{ teacher.email }}<p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 60px"></div>
+    <div>
+        <p style="font-size:200%;">教授課程</p>
+        {% for course in course_list %}
+        <div class="col-md-6">
+            <a style="font-size: 180%;" href="{% url 'course_detail' pk=course.pk %}">
+                <div class="col-md-12 panel panel-default">
+                    <div class="panel-body">
+                        {{ course.course_ch }}
+                    </div>
+                </div>             
+            </a>
+
+        </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

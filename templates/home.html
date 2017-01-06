@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form type="get" action="." style="margin: 0;" >
+        <div class="form-group">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-5">
+                <input  id="search_box"  class="form-control" type="text" name="search_box"  placeholder="搜尋課名、教師名字..." >
+            </div>
+        </div>
+        <button id="search_submit" type="submit" class="btn btn-default" >Submit</button>
+    </form>
+    <div style="height: 30px;"></div>
+    <div>
+        {% for course in course_list %}
+        <div class="col-md-6">
+            <a style="font-size: 180%;" href="{% url 'course_detail' pk=course.pk %}">
+                <div class="col-md-12 panel panel-default">
+                    <div class="panel-body">
+                        <p>{{ course.course_ch }}
+                        <span style="float:right;">{{ course.teacher_ch }}</span></p>
+                    </div>
+                </div>             
+            </a>
+
+        </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
